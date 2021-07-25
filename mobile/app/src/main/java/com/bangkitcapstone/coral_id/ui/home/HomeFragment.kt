@@ -35,7 +35,7 @@ class HomeFragment : DaggerFragment() {
         }
 
         binding?.cardForum?.setOnClickListener {
-            it.findNavController().navigate()
+            it.findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
         }
     }
 
