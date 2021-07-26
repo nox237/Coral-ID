@@ -46,7 +46,7 @@ class LoginFragment : Fragment() {
             editor?.putString("emailAddress", email)
             editor?.putString("password", password)
             editor?.apply()
-
+            
             it.findNavController().navigate(R.id.action_loginFragment_to_forumFragment)
         }
     }
