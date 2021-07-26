@@ -1,5 +1,6 @@
 package com.bangkitcapstone.coral_id.ui.register
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,9 @@ class RegisterFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding
+    private val context = activity
+    private val sharedPreferences = context?.getSharedPreferences("tempBangkit", Context.MODE_PRIVATE)
+    val editor = sharedPreferences?.edit()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +31,21 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.loginLink?.setOnClickListener {
-            it.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            activity?.onBackPressed()
+        }
+
+        binding?.btnRegister?.setOnClickListener {
+            val email = binding?.email?.text.toString()
+            val password = binding?.password?.text.toString()
+            val confirm_password = binding?.confirmPassword?.text.toString()
+
+            if (password == confirm_password){
+                editor?.putString("emailAddress", email)
+                editor?.putString("password", password)
+                editor?.apply()
+
+                it.findNavController().navigate(R.id.action_registerFragment_to_forumFragment)
+            }
         }
     }
 
