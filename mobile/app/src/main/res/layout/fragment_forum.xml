@@ -3,14 +3,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.forum.ForumFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/test_string"
-        android:gravity="center"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/aC_rView_Messages"
+        android:transcriptMode="alwaysScroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:listitem="@layout/item_forum"
+        android:layout_height="570sp"/>
 
+    <RelativeLayout
+        android:id="@+id/aC_rLayout_Send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:paddingLeft="0dp"
+        android:paddingTop="5dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="10dp"
+        android:padding="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/aC_rView_Messages">
+
+        <EditText
+            android:id="@+id/aC_etxt_Message"
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="Enter your message"
+            android:imeOptions="actionSend" />
+
+        <Button
+            android:id="@+id/aC_btn_Send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/aC_etxt_Message"
+            android:gravity="center"
+            android:paddingEnd="10dp"
+            android:text="Send"
+            android:textSize="18sp"
+            tools:ignore="RtlSymmetry" />
+
+    </RelativeLayout>
 </FrameLayout>
