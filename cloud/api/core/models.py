@@ -15,3 +15,9 @@ class Coral(models.Model):
 
     coral_type = models.CharField(max_length=255)
     full_name_abbreviation = models.CharField(max_length=255)
+
+class Forum(models.Model):
+    """Forum Message Model"""
+    user_id = models.CharField(max_length=255)
+    messages = models.CharField(max_length=500)
+    date = models.DateField()
