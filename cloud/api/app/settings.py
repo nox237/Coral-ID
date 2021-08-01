@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'core',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -168,3 +169,5 @@ if os.getenv("GCP_PRODUCTION"):
     download_file(bucketName, bucketFolder, "./", "yolov4.h5")
 
 H5_MODEL = load_model("./yolov4.h5")
+
+AUTH_USER_MODEL = 'user.UserProfile'
