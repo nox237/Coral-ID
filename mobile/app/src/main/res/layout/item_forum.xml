@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tvBody"
+            android:id="@+id/tvMessage"
             android:text="this is the description text"
             android:layout_width="match_parent"
             android:layout_height="0dp"

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkitcapstone.coral_id.data.model.ForumChat
 import com.bangkitcapstone.coral_id.databinding.FragmentForumBinding
 import com.bangkitcapstone.coral_id.ui.result.ResultAdapter
 import com.loopj.android.http.*
@@ -18,6 +19,7 @@ class ForumFragment : Fragment() {
 
     private var _binding: FragmentForumBinding? = null
     private val binding get() = _binding
+    private var forumChatList = ArrayList<ForumChat>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +37,7 @@ class ForumFragment : Fragment() {
 
 //        val email = sharedPreferences.getString("emailAddress", null).toString()
 //        val password = sharedPreferences.getString("password", null).toString()
+        generateData()
         setRecyclerView()
 
         val client = AsyncHttpClient()
@@ -64,12 +67,18 @@ class ForumFragment : Fragment() {
     private fun setRecyclerView() {
         binding?.aCRViewMessages?.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = ForumAdapter()
+            adapter = ForumAdapter(forumChatList)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun generateData(){
+        forumChatList.add(ForumChat("Jimmy", "testing"))
+        forumChatList.add(ForumChat("Jimmy", "testing123"))
+        forumChatList.add(ForumChat("Jimmy", "testingTester"))
     }
 }
