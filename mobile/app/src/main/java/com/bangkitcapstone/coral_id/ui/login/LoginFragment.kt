@@ -10,9 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import com.bangkitcapstone.coral_id.BuildConfig.BASE_URL
 import com.bangkitcapstone.coral_id.R
 import com.bangkitcapstone.coral_id.databinding.FragmentLoginBinding
 import com.bangkitcapstone.coral_id.ui.forum.ForumFragment
+import com.loopj.android.http.AsyncHttpClient
+import com.loopj.android.http.AsyncHttpResponseHandler
+import com.loopj.android.http.RequestParams
+import cz.msebera.android.httpclient.Header
 
 class LoginFragment : Fragment() {
 
@@ -43,11 +48,34 @@ class LoginFragment : Fragment() {
             val email = binding?.email?.text.toString()
             val password = binding?.password?.text.toString()
 
-            editor?.putString("emailAddress", email)
-            editor?.putString("password", password)
-            editor?.apply()
-            
-            it.findNavController().navigate(R.id.action_loginFragment_to_forumFragment)
+//            editor?.putString("emailAddress", email)
+//            editor?.putString("password", password)
+//            editor?.apply()
+            val client = AsyncHttpClient()
+            val requestParams = RequestParams()
+            requestParams.add("email", email)
+            requestParams.add("password", password)
+            client.post(BASE_URL + "login", requestParams, object : AsyncHttpResponseHandler(){
+                override fun onSuccess(
+                    statusCode: Int,
+                    headers: Array<out Header>?,
+                    responseBody: ByteArray
+                ) {
+                    val response = String(responseBody)
+                    Log.d("message", response)
+                    it.findNavController().navigate(R.id.action_loginFragment_to_forumFragment)
+                }
+
+                override fun onFailure(
+                    statusCode: Int,
+                    headers: Array<out Header>?,
+                    responseBody: ByteArray?,
+                    error: Throwable?
+                ) {
+                    Log.d("error", error.toString())
+                }
+
+            })
         }
     }
 

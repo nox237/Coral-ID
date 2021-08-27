@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
+yolov4.h5

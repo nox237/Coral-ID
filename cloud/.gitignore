@@ -139,3 +139,5 @@ cython_debug/
 
 # Custom Model
 /model
+
+yolov4.h5
