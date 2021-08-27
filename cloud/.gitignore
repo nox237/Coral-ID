@@ -139,4 +139,9 @@ cython_debug/
 
 # Custom Model
 /model
+<<<<<<< HEAD
 *.h5
+=======
+
+yolov4.h5
+>>>>>>> mobile
