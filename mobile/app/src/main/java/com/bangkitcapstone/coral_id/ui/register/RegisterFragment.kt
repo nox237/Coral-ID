@@ -1,6 +1,7 @@
 package com.bangkitcapstone.coral_id.ui.register
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,9 +23,7 @@ class RegisterFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding
-    private val context = activity
-    private val sharedPreferences = context?.getSharedPreferences("tempBangkit", Context.MODE_PRIVATE)
-    val editor = sharedPreferences?.edit()
+    private lateinit var pref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +36,8 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        pref = activity?.getSharedPreferences("tempBangkit", Context.MODE_PRIVATE) ?: return
+        val editor = pref.edit()
 
         binding?.loginLink?.setOnClickListener {
             activity?.onBackPressed()
@@ -49,10 +50,6 @@ class RegisterFragment : Fragment() {
             val confirm_password = binding?.confirmPassword?.text.toString()
 
             if (password == confirm_password){
-                editor?.putString("name", name)
-                editor?.putString("emailAddress", email)
-                editor?.putString("password", password)
-                editor?.apply()
 
                 val client = AsyncHttpClient()
                 val requestParams = RequestParams()
@@ -61,7 +58,7 @@ class RegisterFragment : Fragment() {
                 requestParams.add("email", email)
                 requestParams.add("password", password)
 
-                client.post("https://86c0-116-206-12-59.ngrok.io/api/auth/register/", requestParams, object : AsyncHttpResponseHandler(){
+                client.post("http://2e56-223-255-225-76.ngrok.io/api/auth/register/", requestParams, object : AsyncHttpResponseHandler(){
                     override fun onSuccess(
                         statusCode: Int,
                         headers: Array<out Header>?,
@@ -75,8 +72,14 @@ class RegisterFragment : Fragment() {
                         val access_token = response_data.getString("access_token").toString()
                         val message = response_data.getString("message").toString()
 
+                        editor?.putString("refresh_token", refresh_token)
+                        editor?.putString("access_token", access_token)
+                        editor?.apply()
+                        editor?.commit()
+
                         Log.d("message_from_response", message)
                         Toast.makeText(getContext(),message, Toast.LENGTH_SHORT).show()
+                        it.findNavController().navigate(R.id.action_registerFragment_to_forumFragment)
                     }
 
                     override fun onFailure(
@@ -90,7 +93,6 @@ class RegisterFragment : Fragment() {
                     }
 
                 })
-//                it.findNavController().navigate(R.id.action_registerFragment_to_forumFragment)
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.bangkitcapstone.coral_id.ui.forum
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ class ForumFragment : Fragment() {
     private var _binding: FragmentForumBinding? = null
     private val binding get() = _binding
     private var forumChatList = ArrayList<ForumChat>()
+    private lateinit var pref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +35,13 @@ class ForumFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPreferences = activity?.getSharedPreferences("tempBangkit", Context.MODE_PRIVATE) ?: return
+        pref = activity?.getSharedPreferences("tempBangkit", Context.MODE_PRIVATE) ?: return
 
-//        val email = sharedPreferences.getString("emailAddress", null).toString()
-//        val password = sharedPreferences.getString("password", null).toString()
+        val refresh_token = pref.getString("refresh_token", null).toString()
+        val access_token = pref.getString("access_token", null).toString()
+
+        Log.d("refresh_token",refresh_token)
+        Log.d("access_token", access_token)
         generateData()
         setRecyclerView()
 

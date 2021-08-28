@@ -25,9 +25,7 @@ class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding
-    private val context = activity
-    private val sharedPreferences = context?.getSharedPreferences("tempBangkit",Context.MODE_PRIVATE)
-    private val editor = sharedPreferences?.edit()
+    private lateinit var pref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +39,8 @@ class LoginFragment : Fragment() {
     @SuppressLint("CommitPrefEdits")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        pref = activity?.getSharedPreferences("tempBangkit", Context.MODE_PRIVATE) ?: return
+        val editor = pref?.edit()
 
         binding?.registerLink?.setOnClickListener {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -54,7 +54,7 @@ class LoginFragment : Fragment() {
             val requestParams = RequestParams()
             requestParams.add("email", email)
             requestParams.add("password", password)
-            client.post("https://86c0-116-206-12-59.ngrok.io/api/auth/login/", requestParams, object : AsyncHttpResponseHandler(){
+            client.post("http://2e56-223-255-225-76.ngrok.io/api/auth/login/", requestParams, object : AsyncHttpResponseHandler(){
                 override fun onSuccess(
                     statusCode: Int,
                     headers: Array<out Header>?,
@@ -66,11 +66,16 @@ class LoginFragment : Fragment() {
                     val response_data = JSONObject(response)
                     val refresh_token = response_data.getString("refresh_token").toString()
                     val access_token = response_data.getString("access_token").toString()
+
+                    editor?.putString("refresh_token", refresh_token)
+                    editor?.putString("access_token", access_token)
+                    editor?.apply()
+
                     val message = response_data.getString("message").toString()
 
                     Log.d("message_from_response", message)
                     Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show()
-//                    it.findNavController().navigate(R.id.action_loginFragment_to_forumFragment)
+                    it.findNavController().navigate(R.id.action_loginFragment_to_forumFragment)
                 }
 
                 override fun onFailure(
