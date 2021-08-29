@@ -37,6 +37,10 @@ class HomeFragment : DaggerFragment() {
         binding?.cardForum?.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
         }
+
+        binding?.infoButton?.setOnClickListener{
+            it.findNavController().navigate(R.id.action_homeFragment_to_infoFragment)
+        }
     }
 
     override fun onDestroy() {

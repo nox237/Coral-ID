@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_homeFragment_to_forumFragment"
             app:destination="@id/forumFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
     </fragment>
     <fragment
         android:id="@+id/scanFragment"
@@ -89,5 +92,11 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.bangkitcapstone.coral_id.ui.home.InfoDialog"
+        android:label="fragment_info"
+        tools:layout="@layout/info_dialog_fragment">
     </fragment>
 </navigation>

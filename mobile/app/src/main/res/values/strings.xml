@@ -55,4 +55,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_your_name">enter your name</string>
+    <string name="version">V1.1.0</string>
+    <string name="Info_description">This project was a modified version of Bangkit project named: Coral-ID. In this app, I added new forum feature where the people can sent a new message on the forum. To use the app, the user need to change the source code url to the public server, so the application can make an API request into the server. To authenticate which user sent the message, I create a simple authentication feature (login, register, and logout) using JWT as it\'s token. On the server side, I create JWT token using simple-jwt library that was provided for the Django Rest Framework. The user also need to setup the yolov4 model for analyzing the corals. Here is the link for the source code and also the yolov4 model:\nhttps://github.com/nox237/Coral-ID dan https://drive.google.com/file/d/1pRzzqRgSdvXJPMRFsgw2WzAt2fGhGvcA/view?usp=sharing </string>
+    <string name="Info_original">For the original project, you can see on this link below:\nhttps://github.com/sayapakailinuxpak/Coral-ID</string>
+    <string name="closing">Hope the project can give you some insights.\nThanks! - Stephen Nicholas</string>
 </resources>
