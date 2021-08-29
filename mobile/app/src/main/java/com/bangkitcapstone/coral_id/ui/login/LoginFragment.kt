@@ -40,10 +40,21 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pref = activity?.getSharedPreferences("tempBangkit", Context.MODE_PRIVATE) ?: return
-        val editor = pref?.edit()
+
+        val refresh_token = pref.getString("refresh_token", null)
+        val access_token = pref.getString("access_token", null)
+
+        if ((refresh_token != null) && (access_token != null)){
+            Log.d("message", "navigate to forum")
+            view.findNavController().navigateUp()
+            view.findNavController().navigate(R.id.action_homeFragment_to_forumFragment)
+        }
+
+        val editor = pref.edit()
 
         binding?.registerLink?.setOnClickListener {
-            it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            it.findNavController().navigateUp()
+            it.findNavController().navigate(R.id.action_homeFragment_to_registerFragment)
         }
 
         binding?.btnLogin?.setOnClickListener{
@@ -54,7 +65,7 @@ class LoginFragment : Fragment() {
             val requestParams = RequestParams()
             requestParams.add("email", email)
             requestParams.add("password", password)
-            client.post("http://2e56-223-255-225-76.ngrok.io/api/auth/login/", requestParams, object : AsyncHttpResponseHandler(){
+            client.post("http://b4d4-180-214-232-15.ngrok.io/api/auth/login/", requestParams, object : AsyncHttpResponseHandler(){
                 override fun onSuccess(
                     statusCode: Int,
                     headers: Array<out Header>?,
@@ -75,7 +86,9 @@ class LoginFragment : Fragment() {
 
                     Log.d("message_from_response", message)
                     Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show()
-                    it.findNavController().navigate(R.id.action_loginFragment_to_forumFragment)
+
+                    it.findNavController().navigateUp()
+                    it.findNavController().navigate(R.id.action_homeFragment_to_forumFragment)
                 }
 
                 override fun onFailure(

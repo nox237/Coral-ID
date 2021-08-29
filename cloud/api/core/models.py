@@ -20,4 +20,4 @@ class Forum(models.Model):
     """Forum Message Model"""
     user_id = models.CharField(max_length=255)
     messages = models.CharField(max_length=500)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)

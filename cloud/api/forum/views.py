@@ -18,9 +18,9 @@ class ForumAPIViewSet(viewsets.GenericViewSet,
 
     def list(self,request):
         queryset = Forum.objects.all()
-        data = self.serializer_class(queryset, context={'id': request.user.id}, many=True).data
+        data = self.serializer_class(queryset, many=True).data
         return Response(data, status.HTTP_200_OK)
 
     def create(self, request):
-        Forum.objects.create(user_id=str(request.user.id), messages=request.data.get('messages'),date=request.data.get('date'))
+        Forum.objects.create(user_id=str(request.user.id), messages=request.data.get('messages'))
         return Response({'message': 'success post'}, status.HTTP_200_OK)

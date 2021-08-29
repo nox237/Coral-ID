@@ -58,7 +58,7 @@ class RegisterFragment : Fragment() {
                 requestParams.add("email", email)
                 requestParams.add("password", password)
 
-                client.post("http://2e56-223-255-225-76.ngrok.io/api/auth/register/", requestParams, object : AsyncHttpResponseHandler(){
+                client.post("http://b4d4-180-214-232-15.ngrok.io/api/auth/register/", requestParams, object : AsyncHttpResponseHandler(){
                     override fun onSuccess(
                         statusCode: Int,
                         headers: Array<out Header>?,
@@ -79,7 +79,8 @@ class RegisterFragment : Fragment() {
 
                         Log.d("message_from_response", message)
                         Toast.makeText(getContext(),message, Toast.LENGTH_SHORT).show()
-                        it.findNavController().navigate(R.id.action_registerFragment_to_forumFragment)
+                        it.findNavController().navigateUp()
+                        it.findNavController().navigate(R.id.action_homeFragment_to_forumFragment)
                     }
 
                     override fun onFailure(

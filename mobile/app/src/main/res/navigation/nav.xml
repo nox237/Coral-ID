@@ -21,6 +21,12 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_forumFragment"
+            app:destination="@id/forumFragment" />
     </fragment>
     <fragment
         android:id="@+id/scanFragment"

@@ -8,8 +8,8 @@ class ForumAPISerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Forum
-        fields = ('name', 'messages', 'date')
+        fields = ('id','name', 'messages', 'date')
 
     def get_name(self, obj):
-        data = UserProfile.objects.filter(id=self.context.get("id")).first()
+        data = UserProfile.objects.filter(id=obj.user_id).first()
         return data.name
